@@ -1,0 +1,5 @@
+function(run_clang_tidy FILES)
+    find_program(CLANG_TIDY_EXE NAMES "clang-tidy" REQUIRED)
+    set(CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE};-header-filter=${CMAKE_SOURCE_DIR}/src")
+    set_source_files_properties(${FILES} PROPERTIES CXX_CLANG_TIDY "${CMAKE_CXX_CLANG_TIDY}")
+endfunction()

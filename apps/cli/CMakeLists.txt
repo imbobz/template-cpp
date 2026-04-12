@@ -14,3 +14,11 @@ target_link_libraries(${APP_NAME} PRIVATE
         ${PROJECT_NAME}::core
         spdlog::spdlog
 )
+
+if(RUN_CLANG_TIDY OR RUN_CLANG_TIDY_ERRORS)
+    enable_clang_tidy(${APP_NAME})
+endif()
+
+if(RUN_CLANG_FORMAT_ERRORS OR RUN_CLANG_FORMAT_FORMAT)
+    enable_clang_format(${APP_NAME})
+endif()

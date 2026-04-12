@@ -38,13 +38,16 @@ The following dependencies must be installed on your system:
 This section targets developers and contributors.
 
 ### CMake Options
-| Option           | Default | Description                                   |
-|------------------|---------|-----------------------------------------------|
-| `BUILD_APP`      | `ON`    | Build modules and apps                        |
-| `BUILD_DOC_HTML` | `OFF`   | Generate HTML documentation                   |
-| `BUILD_DOC_PDF`  | `OFF`   | Generate PDF documentation (Linux/macOS only) |
-| `BUILD_TESTS`    | `OFF`   | Build unit tests                              |
-
+| Option                    | Default | Description                                   |
+|---------------------------|---------|-----------------------------------------------|
+| `BUILD_APP`               | `ON`    | Build modules and apps                        |
+| `BUILD_DOC_HTML`          | `OFF`   | Generate HTML documentation                   |
+| `BUILD_DOC_PDF`           | `OFF`   | Generate PDF documentation (Linux/macOS only) |
+| `BUILD_TESTS`             | `OFF`   | Build unit tests                              |
+| `RUN_CLANG_TIDY`          | `OFF`   | Run clang-tidy static analysis                |
+| `RUN_CLANG_TIDY_ERRORS`   | `OFF`   | Treat clang-tidy warnings as errors           |
+| `RUN_CLANG_FORMAT_ERRORS` | `OFF`   | Treat clang-format warnings as errors         |
+| `RUN_CLANG_FORMAT_FORMAT` | `OFF`   | Run clang-format                              |
 
 ### Preprocessor macros
 | Macro                 | Example value | Description                            |

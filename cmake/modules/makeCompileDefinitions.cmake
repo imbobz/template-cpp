@@ -21,8 +21,6 @@ if(GIT_FOUND)
     set(GIT_COMMIT_HASH "${_commit_value}" CACHE STRING "Short Git commit hash" FORCE)
 endif()
 
-message(STATUS "Commit hash : ${GIT_COMMIT_HASH}")
-
 target_compile_definitions(${MODULE_NAME} INTERFACE
         PROJECT_BUILD_TYPE="$<CONFIG>"
         PROJECT_COMMIT_HASH="${GIT_COMMIT_HASH}"

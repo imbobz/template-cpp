@@ -1,0 +1,297 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": {
+    "major": 3,
+    "minor": 28,
+    "patch": 0
+  },
+
+  "configurePresets": [
+
+    {
+      "name": "base",
+      "hidden": true,
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "BUILD_SHARED_LIBS":             "OFF",
+        "BUILD_DOC_HTML":                "OFF",
+        "BUILD_DOC_PDF":                 "OFF"
+      }
+    },
+
+    {
+      "name": "base-msvc",
+      "hidden": true,
+      "toolset": "host=x64",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER":   "cl",
+        "CMAKE_CXX_COMPILER": "cl"
+      }
+    },
+
+    {
+      "name": "base-gcc",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER":   "gcc",
+        "CMAKE_CXX_COMPILER": "g++"
+      }
+    },
+
+    {
+      "name": "base-clang",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER":   "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
+      }
+    },
+
+    {
+      "name": "base-tools-off",
+      "hidden": true,
+      "cacheVariables": {
+        "RUN_CLANG_TIDY":          "OFF",
+        "RUN_CLANG_TIDY_ERRORS":   "OFF",
+        "RUN_CLANG_FORMAT_ERRORS": "OFF",
+        "RUN_CLANG_FORMAT_FORMAT": "OFF"
+      }
+    },
+
+    {
+      "name": "base-tools-dev",
+      "hidden": true,
+      "cacheVariables": {
+        "RUN_CLANG_TIDY":          "ON",
+        "RUN_CLANG_TIDY_ERRORS":   "OFF",
+        "RUN_CLANG_FORMAT_ERRORS": "OFF",
+        "RUN_CLANG_FORMAT_FORMAT": "ON"
+      }
+    },
+
+    {
+      "name": "base-tools-ci",
+      "hidden": true,
+      "cacheVariables": {
+        "RUN_CLANG_TIDY":          "ON",
+        "RUN_CLANG_TIDY_ERRORS":   "ON",
+        "RUN_CLANG_FORMAT_ERRORS": "ON",
+        "RUN_CLANG_FORMAT_FORMAT": "OFF"
+      }
+    },
+
+    {
+      "name": "dev-windows",
+      "displayName": "Dev · Windows · MSVC · Debug",
+      "inherits": ["base", "base-msvc", "base-tools-dev"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_APP":        "ON",
+        "BUILD_TESTS":      "ON"
+      }
+    },
+
+    {
+      "name": "dev-linux",
+      "displayName": "Dev · Linux · GCC · Debug",
+      "inherits": ["base", "base-gcc", "base-tools-dev"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_APP":        "ON",
+        "BUILD_TESTS":      "ON"
+      }
+    },
+
+    {
+      "name": "dev-macos",
+      "displayName": "Dev · macOS · Clang · Debug",
+      "inherits": ["base", "base-clang", "base-tools-dev"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_APP":        "ON",
+        "BUILD_TESTS":      "ON"
+      }
+    },
+
+    {
+      "name": "release-windows",
+      "displayName": "Release · Windows · MSVC",
+      "inherits": ["base", "base-msvc", "base-tools-off"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_APP":        "ON",
+        "BUILD_TESTS":      "OFF"
+      }
+    },
+
+    {
+      "name": "release-linux",
+      "displayName": "Release · Linux · GCC",
+      "inherits": ["base", "base-gcc", "base-tools-off"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_APP":        "ON",
+        "BUILD_TESTS":      "OFF"
+      }
+    },
+
+    {
+      "name": "release-macos",
+      "displayName": "Release · macOS · Clang",
+      "inherits": ["base", "base-clang", "base-tools-off"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Darwin"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_APP":        "ON",
+        "BUILD_TESTS":      "OFF"
+      }
+    },
+
+    {
+      "name": "ci-linux",
+      "displayName": "CI · Linux · GCC · Release",
+      "inherits": ["base", "base-gcc", "base-tools-ci"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_APP":        "ON",
+        "BUILD_TESTS":      "ON"
+      }
+    },
+
+    {
+      "name": "ci-windows",
+      "displayName": "CI · Windows · MSVC · Release",
+      "inherits": ["base", "base-msvc", "base-tools-ci"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_APP":        "ON",
+        "BUILD_TESTS":      "ON"
+      }
+    },
+
+    {
+      "name": "tests-linux",
+      "displayName": "Tests · Linux · GCC · Debug",
+      "inherits": ["base", "base-gcc", "base-tools-off"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_APP":        "OFF",
+        "BUILD_TESTS":      "ON"
+      }
+    },
+
+    {
+      "name": "tests-windows",
+      "displayName": "Tests · Windows · MSVC · Debug",
+      "inherits": ["base", "base-msvc", "base-tools-off"],
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      },
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "BUILD_APP":        "OFF",
+        "BUILD_TESTS":      "ON"
+      }
+    }
+  ],
+
+  "buildPresets": [
+    { "name": "dev-windows",     "configurePreset": "dev-windows",     "jobs": 0 },
+    { "name": "dev-linux",       "configurePreset": "dev-linux",       "jobs": 0 },
+    { "name": "dev-macos",       "configurePreset": "dev-macos",       "jobs": 0 },
+    { "name": "release-windows", "configurePreset": "release-windows", "jobs": 0 },
+    { "name": "release-linux",   "configurePreset": "release-linux",   "jobs": 0 },
+    { "name": "release-macos",   "configurePreset": "release-macos",   "jobs": 0 },
+    { "name": "ci-linux",        "configurePreset": "ci-linux",        "jobs": 0 },
+    { "name": "ci-windows",      "configurePreset": "ci-windows",      "jobs": 0 },
+    { "name": "tests-linux",     "configurePreset": "tests-linux",     "jobs": 0 },
+    { "name": "tests-windows",   "configurePreset": "tests-windows",   "jobs": 0 }
+  ],
+
+  "testPresets": [
+    {
+      "name": "dev-windows",
+      "configurePreset": "dev-windows",
+      "output": { "outputOnFailure": true },
+      "execution": { "jobs": 0, "stopOnFailure": false }
+    },
+    {
+      "name": "dev-linux",
+      "configurePreset": "dev-linux",
+      "output": { "outputOnFailure": true },
+      "execution": { "jobs": 0, "stopOnFailure": false }
+    },
+    {
+      "name": "ci-linux",
+      "configurePreset": "ci-linux",
+      "output": { "outputOnFailure": true },
+      "execution": { "jobs": 0, "stopOnFailure": true }
+    },
+    {
+      "name": "ci-windows",
+      "configurePreset": "ci-windows",
+      "output": { "outputOnFailure": true },
+      "execution": { "jobs": 0, "stopOnFailure": true }
+    },
+    {
+      "name": "tests-linux",
+      "configurePreset": "tests-linux",
+      "output": { "outputOnFailure": true },
+      "execution": { "jobs": 0, "stopOnFailure": false }
+    },
+    {
+      "name": "tests-windows",
+      "configurePreset": "tests-windows",
+      "output": { "outputOnFailure": true },
+      "execution": { "jobs": 0, "stopOnFailure": false }
+    }
+  ]
+}

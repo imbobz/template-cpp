@@ -1,14 +1,26 @@
-BasedOnStyle: LLVM
-IndentWidth: 4
-TabWidth: 4
-UseTab: Never
-ColumnLimit: 120
-BreakBeforeBraces: Allman
+Language:        Cpp
+BasedOnStyle:    LLVM
+Standard:        c++20
 
-NamespaceIndentation: All
+ColumnLimit:              100
+IndentWidth:              4
+TabWidth:                 4
+UseTab:                   Never
+ContinuationIndentWidth:  4
 
-AccessModifierOffset: 0
-IndentAccessModifiers: true
-EmptyLineBeforeAccessModifier: Always
+# Accolades
+BreakBeforeBraces:        Allman
 
-IndentCaseLabels: true
+# Includes
+SortIncludes:             CaseSensitive
+IncludeBlocks:            Regroup
+
+# Espacement
+SpaceBeforeParens:        ControlStatements
+SpaceInEmptyParentheses:  false
+SpacesInAngles:           Never
+
+PointerAlignment:         Right
+
+NamespaceIndentation:     None
+CompactNamespaces:        false

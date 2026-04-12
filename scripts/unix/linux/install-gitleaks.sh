@@ -1,9 +1,6 @@
 #!/bin/bash
 set -e
 
-version=8.30.0
-platform=linux
-
-wget https://github.com/gitleaks/gitleaks/releases/download/v$version/gitleaks_$version_$platform_x64.tar.gz
-tar -xf gitleaks_$version_$platform_x64.tar.gz
+wget https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+tar -xf gitleaks_8.30.1_linux_x64.tar.gz
 sudo mv gitleaks /usr/local/bin/

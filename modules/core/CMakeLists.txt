@@ -28,3 +28,11 @@ target_link_libraries(${MODULE_NAME}
         PRIVATE
         nlohmann_json::nlohmann_json
 )
+
+if(RUN_CLANG_TIDY OR RUN_CLANG_TIDY_ERRORS)
+    enable_clang_tidy(${MODULE_NAME})
+endif()
+
+if(RUN_CLANG_FORMAT_ERRORS OR RUN_CLANG_FORMAT_FORMAT)
+    enable_clang_format(${MODULE_NAME})
+endif()
